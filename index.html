@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ananya Hebbar — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Base ───────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#080C14;
+  color:#E2E8F0;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── Custom Cursor ──────────────────────────────────────────────────────── */
+#cursor{
+  width:10px;height:10px;
+  background:#22D3EE;
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transition:transform .15s ease,background .2s;
+  mix-blend-mode:screen;
+}
+#cursor-ring{
+  width:36px;height:36px;
+  border:1.5px solid rgba(34,211,238,.4);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9998;
+  transition:transform .35s cubic-bezier(.23,1,.32,1);
+}
+body:hover #cursor{transform:translate(-50%,-50%)}
+body:hover #cursor-ring{transform:translate(-50%,-50%)}
+
+/* ── CSS Variables ──────────────────────────────────────────────────────── */
+:root{
+  --bg:        #080C14;
+  --bg2:       #0D1220;
+  --bg3:       #111827;
+  --accent:    #22D3EE;
+  --accent2:   #F59E0B;
+  --navy:      #1B3A6B;
+  --text:      #E2E8F0;
+  --muted:     #94A3B8;
+  --dim:       #475569;
+  --card:      rgba(17,24,39,.7);
+  --border:    rgba(34,211,238,.12);
+  --glow:      0 0 40px rgba(34,211,238,.15);
+}
+
+/* ── Noise Overlay ──────────────────────────────────────────────────────── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;opacity:.5;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+
+/* ── Nav ────────────────────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 3rem;
+  background:rgba(8,12,20,.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:all .3s;
+}
+nav.scrolled{padding:.75rem 3rem;background:rgba(8,12,20,.97)}
+.nav-logo{
+  font-family:'Syne',sans-serif;
+  font-size:1.15rem;font-weight:800;
+  color:var(--accent);letter-spacing:.05em;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-size:.82rem;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);
+  text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{
+  background:transparent;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  font-family:'DM Sans',sans-serif;
+  font-size:.8rem;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:.5rem 1.2rem;
+  border-radius:2px;cursor:pointer;
+  transition:all .2s;text-decoration:none;
+}
+.nav-cta:hover{background:var(--accent);color:#080C14}
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:8rem 3rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(34,211,238,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);
+}
+.hero-orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(80px);
+  pointer-events:none;
+}
+.orb-1{width:500px;height:500px;background:rgba(27,58,107,.5);top:-100px;right:-100px}
+.orb-2{width:300px;height:300px;background:rgba(34,211,238,.06);bottom:10%;left:-50px}
+
+.hero-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'DM Mono',monospace;
+  font-size:.75rem;color:var(--accent);
+  border:1px solid rgba(34,211,238,.3);
+  padding:.3rem .9rem;border-radius:2px;
+  margin-bottom:1.8rem;
+  opacity:0;animation:fadeUp .6s .2s forwards;
+}
+.hero-tag::before{content:'//';opacity:.5}
+
+h1.hero-name{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(3.5rem,8vw,7rem);
+  font-weight:800;line-height:.95;
+  letter-spacing:-.03em;
+  margin-bottom:.6rem;
+  opacity:0;animation:fadeUp .7s .35s forwards;
+}
+h1.hero-name span{color:var(--accent)}
+
+.hero-title{
+  font-family:'DM Sans',sans-serif;
+  font-size:clamp(1rem,2vw,1.3rem);
+  font-weight:300;color:var(--muted);
+  max-width:620px;line-height:1.7;
+  margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .7s .5s forwards;
+}
+.hero-title strong{color:var(--text);font-weight:500}
+
+.hero-domains{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  margin-bottom:3rem;
+  opacity:0;animation:fadeUp .7s .65s forwards;
+}
+.domain-pill{
+  font-family:'DM Mono',monospace;
+  font-size:.72rem;
+  padding:.3rem .85rem;
+  background:rgba(34,211,238,.07);
+  border:1px solid rgba(34,211,238,.2);
+  border-radius:2px;color:var(--accent);
+  letter-spacing:.04em;
+}
+
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .7s .8s forwards;
+}
+.btn-primary{
+  background:var(--accent);color:#080C14;
+  font-family:'DM Sans',sans-serif;
+  font-weight:600;font-size:.9rem;
+  padding:.75rem 2rem;border-radius:2px;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:all .2s;letter-spacing:.02em;
+}
+.btn-primary:hover{background:#67E8F9;transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,211,238,.3)}
+.btn-outline{
+  border:1px solid var(--dim);color:var(--muted);
+  font-family:'DM Sans',sans-serif;
+  font-weight:400;font-size:.9rem;
+  padding:.75rem 2rem;border-radius:2px;
+  text-decoration:none;cursor:pointer;
+  transition:all .2s;background:transparent;
+}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero-scroll{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  font-family:'DM Mono',monospace;font-size:.65rem;
+  color:var(--dim);letter-spacing:.1em;text-transform:uppercase;
+  opacity:0;animation:fadeUp .5s 1.2s forwards;
+}
+.scroll-line{
+  width:1px;height:50px;
+  background:linear-gradient(to bottom,var(--accent),transparent);
+  animation:scrollLine 2s 1.5s infinite;
+}
+@keyframes scrollLine{
+  0%{opacity:0;transform:scaleY(0);transform-origin:top}
+  50%{opacity:1;transform:scaleY(1)}
+  100%{opacity:0;transform:scaleY(0);transform-origin:bottom}
+}
+
+/* ── Stats bar ──────────────────────────────────────────────────────────── */
+.stats-bar{
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:1.5rem 3rem;
+  display:flex;justify-content:center;gap:0;
+  overflow-x:auto;
+}
+.stat-item{
+  flex:0 0 auto;
+  text-align:center;
+  padding:0 3rem;
+  border-right:1px solid var(--border);
+}
+.stat-item:last-child{border-right:none}
+.stat-num{
+  font-family:'Syne',sans-serif;
+  font-size:1.8rem;font-weight:800;
+  color:var(--accent);display:block;
+}
+.stat-lbl{
+  font-size:.72rem;font-weight:400;
+  color:var(--muted);letter-spacing:.06em;
+  text-transform:uppercase;display:block;margin-top:.15rem;
+}
+
+/* ── Section base ───────────────────────────────────────────────────────── */
+section{padding:6rem 3rem;position:relative;z-index:2}
+.section-label{
+  font-family:'DM Mono',monospace;
+  font-size:.72rem;color:var(--accent);
+  letter-spacing:.12em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.75rem;
+  margin-bottom:1rem;
+}
+.section-label::after{
+  content:'';flex:0 0 40px;height:1px;
+  background:var(--accent);opacity:.4;
+}
+h2.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:800;line-height:1.1;
+  letter-spacing:-.02em;
+  margin-bottom:3rem;
+}
+h2.section-title em{
+  font-style:normal;
+  -webkit-text-stroke:1px var(--accent);
+  color:transparent;
+}
+
+/* ── About ──────────────────────────────────────────────────────────────── */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-text p{
+  font-size:1rem;line-height:1.9;
+  color:var(--muted);margin-bottom:1.2rem;
+}
+.about-text p strong{color:var(--text)}
+.about-highlights{display:flex;flex-direction:column;gap:.9rem;margin-top:2rem}
+.highlight-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:.9rem 1.2rem;
+  background:rgba(34,211,238,.04);
+  border:1px solid var(--border);
+  border-radius:3px;
+  transition:border-color .2s,background .2s;
+}
+.highlight-item:hover{border-color:rgba(34,211,238,.35);background:rgba(34,211,238,.08)}
+.hi-icon{font-size:1.3rem;flex-shrink:0}
+.hi-text{font-size:.88rem;line-height:1.5}
+.hi-text strong{color:var(--accent);display:block;font-size:.82rem;font-family:'DM Mono',monospace;letter-spacing:.04em}
+
+/* Skills grid */
+.skills-grid{display:flex;flex-direction:column;gap:1.4rem}
+.skill-cat-label{
+  font-family:'DM Mono',monospace;
+  font-size:.7rem;color:var(--muted);
+  letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:.5rem;display:block;
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.45rem}
+.skill-tag{
+  font-size:.78rem;
+  padding:.3rem .75rem;
+  background:rgba(27,58,107,.4);
+  border:1px solid rgba(34,211,238,.15);
+  border-radius:2px;color:#93C5FD;
+  font-family:'DM Mono',monospace;letter-spacing:.02em;
+  transition:all .2s;
+}
+.skill-tag:hover{background:rgba(34,211,238,.1);border-color:var(--accent);color:var(--accent)}
+
+/* ── Experience ─────────────────────────────────────────────────────────── */
+#experience{background:var(--bg)}
+.exp-card{
+  max-width:820px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:4px;padding:2.5rem;
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(10px);
+}
+.exp-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+.exp-role{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text)}
+.exp-company{color:var(--accent);font-size:.95rem;font-weight:500;margin-top:.25rem}
+.exp-badge{
+  background:rgba(34,211,238,.1);
+  border:1px solid rgba(34,211,238,.25);
+  color:var(--accent);
+  font-family:'DM Mono',monospace;
+  font-size:.72rem;padding:.35rem .85rem;border-radius:2px;letter-spacing:.04em;
+  white-space:nowrap;
+}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.exp-bullets li{
+  display:flex;gap:.75rem;
+  font-size:.9rem;line-height:1.6;color:var(--muted);
+}
+.exp-bullets li::before{
+  content:'→';color:var(--accent);
+  flex-shrink:0;font-family:'DM Mono',monospace;font-size:.85rem;
+  margin-top:.02em;
+}
+.exp-bullets strong{color:var(--text)}
+
+/* ── Projects ───────────────────────────────────────────────────────────── */
+#projects{background:var(--bg2)}
+.proj-tabs{
+  display:flex;gap:.5rem;margin-bottom:3rem;flex-wrap:wrap;
+}
+.proj-tab{
+  font-family:'DM Mono',monospace;font-size:.75rem;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:.45rem 1.1rem;border-radius:2px;cursor:pointer;
+  border:1px solid var(--border);color:var(--muted);
+  background:transparent;transition:all .2s;
+}
+.proj-tab.active,.proj-tab:hover{
+  border-color:var(--accent);color:var(--accent);
+  background:rgba(34,211,238,.07);
+}
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:1.5rem;
+}
+.proj-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:4px;padding:1.8rem;
+  transition:all .3s;cursor:default;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  backdrop-filter:blur(10px);
+}
+.proj-card::after{
+  content:'';position:absolute;
+  top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle at center,rgba(34,211,238,.04) 0%,transparent 60%);
+  opacity:0;transition:opacity .4s;
+}
+.proj-card:hover::after{opacity:1}
+.proj-card:hover{border-color:rgba(34,211,238,.3);transform:translateY(-4px);box-shadow:var(--glow)}
+.proj-card.featured{
+  border-color:rgba(245,158,11,.25);
+  background:linear-gradient(135deg,rgba(17,24,39,.95),rgba(245,158,11,.04));
+}
+.proj-card.featured:hover{border-color:rgba(245,158,11,.5);box-shadow:0 0 40px rgba(245,158,11,.1)}
+.proj-featured-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:'DM Mono',monospace;font-size:.65rem;
+  color:var(--accent2);
+  border:1px solid rgba(245,158,11,.3);
+  padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;
+}
+.proj-cat{
+  font-family:'DM Mono',monospace;font-size:.68rem;
+  color:var(--muted);letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:.6rem;display:block;
+}
+.proj-name{
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;font-weight:700;
+  color:var(--text);margin-bottom:.4rem;line-height:1.2;
+}
+.proj-context{
+  font-size:.78rem;color:var(--accent);
+  font-family:'DM Mono',monospace;margin-bottom:.9rem;opacity:.8;
+}
+.proj-tech{
+  display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem;
+}
+.tech-chip{
+  font-size:.68rem;padding:.2rem .55rem;
+  background:rgba(34,211,238,.06);
+  border:1px solid rgba(34,211,238,.1);
+  border-radius:2px;color:var(--muted);
+  font-family:'DM Mono',monospace;
+}
+.proj-desc{
+  font-size:.85rem;line-height:1.7;
+  color:var(--muted);margin-bottom:1rem;flex:1;
+}
+.proj-desc strong{color:var(--text)}
+.proj-links{display:flex;gap:.75rem;margin-top:auto;flex-wrap:wrap}
+.proj-link{
+  font-family:'DM Mono',monospace;font-size:.72rem;
+  color:var(--accent);text-decoration:none;
+  letter-spacing:.04em;
+  display:flex;align-items:center;gap:.35rem;
+  transition:opacity .2s;
+}
+.proj-link:hover{opacity:.7}
+.proj-academic-tag{
+  font-family:'DM Mono',monospace;font-size:.68rem;
+  color:var(--dim);margin-top:auto;padding-top:.8rem;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+/* ── Achievements ───────────────────────────────────────────────────────── */
+#achievements{background:var(--bg)}
+.ach-list{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1rem;max-width:1000px;
+}
+.ach-item{
+  display:flex;gap:1rem;
+  padding:1.1rem 1.3rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:3px;
+  transition:all .25s;
+  backdrop-filter:blur(8px);
+}
+.ach-item:hover{border-color:rgba(34,211,238,.3);transform:translateX(4px)}
+.ach-icon{font-size:1.4rem;flex-shrink:0;margin-top:.1rem}
+.ach-body{}
+.ach-title{font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:.2rem}
+.ach-sub{font-size:.78rem;color:var(--muted);line-height:1.4}
+
+/* ── Certifications ─────────────────────────────────────────────────────── */
+#certifications{background:var(--bg2)}
+.cert-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1rem;
+}
+.cert-card{
+  padding:1.2rem 1.4rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:3px;transition:all .25s;
+  backdrop-filter:blur(8px);
+}
+.cert-card:hover{border-color:rgba(34,211,238,.3);transform:translateY(-3px)}
+.cert-card.premium{border-color:rgba(245,158,11,.25)}
+.cert-card.premium:hover{border-color:rgba(245,158,11,.5)}
+.cert-icon{font-size:1.5rem;margin-bottom:.6rem;display:block}
+.cert-name{font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:.25rem;line-height:1.3}
+.cert-org{font-size:.75rem;color:var(--muted);font-family:'DM Mono',monospace}
+
+/* ── Contact ────────────────────────────────────────────────────────────── */
+#contact{background:var(--bg);text-align:center}
+.contact-inner{max-width:600px;margin:0 auto}
+.contact-inner p{font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:2.5rem}
+.contact-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.contact-link{
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.85rem;color:var(--muted);text-decoration:none;
+  padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:2px;
+  transition:all .2s;font-family:'DM Mono',monospace;
+}
+.contact-link:hover{border-color:var(--accent);color:var(--accent)}
+.contact-email-big{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.2rem,3vw,2rem);
+  font-weight:700;color:var(--accent);
+  text-decoration:none;display:inline-block;
+  margin-bottom:2rem;
+  transition:opacity .2s;
+}
+.contact-email-big:hover{opacity:.7}
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+footer{
+  border-top:1px solid var(--border);
+  padding:1.5rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'DM Mono',monospace;font-size:.72rem;color:var(--dim);
+  position:relative;z-index:2;
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .65s ease,transform .65s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  nav.scrolled{padding:.7rem 1.5rem}
+  .nav-links{display:none}
+  section{padding:4rem 1.5rem}
+  #hero{padding:6rem 1.5rem 3rem}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .stats-bar{gap:0;padding:1.2rem 1rem}
+  .stat-item{padding:0 1.5rem}
+  footer{flex-direction:column;gap:.5rem;text-align:center;padding:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Nav -->
+<nav id="navbar">
+  <div class="nav-logo">AH</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:ananyahr906@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+
+  <div class="hero-tag">Available for internships · 2025–26</div>
+
+  <h1 class="hero-name">
+    Ananya<br/><span>Hebbar</span>
+  </h1>
+
+  <p class="hero-title">
+    <strong>CS Engineering student (CGPA 9.36)</strong> building production-grade AI, full-stack,
+    and intelligent systems across AgriTech, FinTech, Healthcare &amp; Productivity.
+    Hands-on with <strong>MERN · TensorFlow Lite · Multi-modal AI · Cybersecurity</strong>.
+  </p>
+
+  <div class="hero-domains">
+    <span class="domain-pill">MERN Stack</span>
+    <span class="domain-pill">Embedded ML</span>
+    <span class="domain-pill">LLM / Multi-modal AI</span>
+    <span class="domain-pill">Cybersecurity</span>
+    <span class="domain-pill">AgriTech</span>
+    <span class="domain-pill">FinTech</span>
+    <span class="domain-pill">HealthTech</span>
+    <span class="domain-pill">IoT</span>
+  </div>
+
+  <div class="hero-actions">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="mailto:ananyahr906@gmail.com" class="btn-outline">Get in Touch</a>
+  </div>
+
+  <div class="hero-scroll">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num">9.36</span><span class="stat-lbl">CGPA</span></div>
+  <div class="stat-item"><span class="stat-num">500<span style="font-size:1.2rem">+</span></span><span class="stat-lbl">Eureka Rank / 43K</span></div>
+  <div class="stat-item"><span class="stat-num">6<span style="font-size:1.2rem">+</span></span><span class="stat-lbl">Deep-Tech Projects</span></div>
+  <div class="stat-item"><span class="stat-num">13<span style="font-size:1.2rem">+</span></span><span class="stat-lbl">Certifications</span></div>
+  <div class="stat-item"><span class="stat-num">3</span><span class="stat-lbl">Domains: Govt · Fintech · Product</span></div>
+</div>
+
+<!-- About -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Builder.<br/><em>Not</em> just a student.</h2>
+      <p>I'm a Computer Science Engineering student at <strong>MITE, Mangaluru</strong> building systems that go beyond coursework — from a Government of Karnataka AgriTech proposal to a FinTech AI platform for Poonawalla Fincorp's national challenge.</p>
+      <p>My work spans <strong>embedded ML on ESP32</strong>, <strong>multi-modal AI pipelines</strong> combining LLM + CV + STT, full-stack MERN applications, and real-world cybersecurity practice. I don't just learn technologies — I apply them to problems that matter.</p>
+      <p>Recognized as <strong>Eureka 2025 Zonalist</strong> (Top 500 of 43,000+ teams, IIT Bombay), <strong>Salesforce Agentblazer Champion</strong>, and active contributor across NAIN 2.0, TenzorX 2026, and L'Oréal Brandstorm.</p>
+
+      <div class="about-highlights" style="margin-top:1.8rem">
+        <div class="highlight-item">
+          <span class="hi-icon">🌾</span>
+          <div class="hi-text">
+            <strong>NAIN 2.0 · Govt. of Karnataka</strong>
+            FertAlert — AI device to detect fertilizer adulteration for 106M Indian farmers
+          </div>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">💳</span>
+          <div class="hi-text">
+            <strong>TenzorX 2026 · Poonawalla Fincorp</strong>
+            AIVA — Multi-modal AI video loan onboarding system
+          </div>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">🥇</span>
+          <div class="hi-text">
+            <strong>Eureka! 2025 · IIT Bombay</strong>
+            SANGATH — Top 500 out of 43,000+ teams (AI mental wellness platform)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills-grid reveal" style="transition-delay:.15s">
+      <div class="section-label" style="margin-bottom:1.5rem">Skills</div>
+
+      <div style="margin-bottom:1.1rem">
+        <span class="skill-cat-label">Languages</span>
+        <div class="skill-tags">
+          <span class="skill-tag">JavaScript</span><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">Java</span><span class="skill-tag">R</span><span class="skill-tag">C</span>
+        </div>
+      </div>
+      <div style="margin-bottom:1.1rem">
+        <span class="skill-cat-label">Frontend &amp; Backend</span>
+        <div class="skill-tags">
+          <span class="skill-tag">React.js</span><span class="skill-tag">Node.js</span><span class="skill-tag">Express.js</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">REST APIs</span>
+        </div>
+      </div>
+      <div style="margin-bottom:1.1rem">
+        <span class="skill-cat-label">AI / ML</span>
+        <div class="skill-tags">
+          <span class="skill-tag">TensorFlow Lite</span><span class="skill-tag">NLP</span><span class="skill-tag">LLM APIs</span><span class="skill-tag">OpenCV</span><span class="skill-tag">MediaPipe</span><span class="skill-tag">scikit-learn</span>
+        </div>
+      </div>
+      <div style="margin-bottom:1.1rem">
+        <span class="skill-cat-label">IoT &amp; Embedded</span>
+        <div class="skill-tags">
+          <span class="skill-tag">ESP32</span><span class="skill-tag">Arduino</span><span class="skill-tag">Embedded C</span><span class="skill-tag">BLE</span><span class="skill-tag">Flutter</span>
+        </div>
+      </div>
+      <div style="margin-bottom:1.1rem">
+        <span class="skill-cat-label">Database &amp; Tools</span>
+        <div class="skill-tags">
+          <span class="skill-tag">MongoDB</span><span class="skill-tag">MySQL</span><span class="skill-tag">Firebase</span><span class="skill-tag">Git</span><span class="skill-tag">Salesforce</span><span class="skill-tag">Docker</span>
+        </div>
+      </div>
+      <div>
+        <span class="skill-cat-label">Security</span>
+        <div class="skill-tags">
+          <span class="skill-tag">Kali Linux</span><span class="skill-tag">Nmap</span><span class="skill-tag">Wireshark</span><span class="skill-tag">Nessus</span><span class="skill-tag">UFW</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title">Real-world <em>exposure</em>.</h2>
+
+  <div class="exp-card reveal">
+    <div class="exp-header">
+      <div>
+        <div class="exp-role">Cybersecurity Intern</div>
+        <div class="exp-company">SystemTron · Remote</div>
+      </div>
+      <span class="exp-badge">Oct 2025 – Nov 2025</span>
+    </div>
+    <ul class="exp-bullets">
+      <li><span><strong>Network Reconnaissance:</strong> Nmap &amp; Wireshark on Kali Linux + Metasploitable2 — identified open ports, exposed services &amp; traffic anomalies</span></li>
+      <li><span><strong>Vulnerability Assessment:</strong> Nessus with CVE cross-referencing — classified risks across Critical / High / Medium / Low severity levels</span></li>
+      <li><span><strong>Incident Response Simulation:</strong> Malware detection (EICAR), SSH attack analysis, session containment &amp; root-cause reporting</span></li>
+      <li><span><strong>Security Hardening:</strong> UFW firewall rules, access-control policies, log analysis &amp; post-incident documentation across 4 structured weeks</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">Things I've <em>built</em>.</h2>
+
+  <div class="proj-tabs">
+    <button class="proj-tab active" onclick="filterProj('all',this)">All</button>
+    <button class="proj-tab" onclick="filterProj('fullstack',this)">🚀 Built &amp; Deployed</button>
+    <button class="proj-tab" onclick="filterProj('deeptech',this)">🧠 AI Systems Design</button>
+    <button class="proj-tab" onclick="filterProj('product',this)">💡 Product Concepts</button>
+  </div>
+  <div style="display:flex;gap:2rem;margin-bottom:2rem;flex-wrap:wrap">
+    <span style="font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.06em">🚀 Built &amp; Deployed — Live / Code Available &nbsp;&nbsp;·&nbsp;&nbsp; 🧠 AI Systems — Architected &amp; Designed &nbsp;&nbsp;·&nbsp;&nbsp; 💡 Concepts — Product Thinking &amp; Innovation</span>
+  </div>
+
+  <div class="proj-grid" id="projGrid">
+
+    <!-- AI Task Board -->
+    <div class="proj-card featured" data-cat="fullstack">
+      <div class="proj-featured-badge">🚀 Built &amp; Deployed · Live</div>
+      <span class="proj-cat">Full-Stack · NLP</span>
+      <div class="proj-name">AI Task Board</div>
+      <div class="proj-context">NLP Meeting-to-Task Automation System</div>
+      <div class="proj-tech">
+        <span class="tech-chip">MERN Stack</span><span class="tech-chip">Custom NLP</span><span class="tech-chip">MongoDB Atlas</span><span class="tech-chip">JWT</span><span class="tech-chip">Vercel</span><span class="tech-chip">Render</span>
+      </div>
+      <div class="proj-desc">
+        Designed &amp; deployed a full-stack system that converts raw meeting transcripts into structured, prioritized task boards. Custom NLP pipeline handles action-sentence detection, stakeholder extraction &amp; 3-tier priority classification. <strong>Reduced manual task-tracking effort by ~60%.</strong>
+      </div>
+      <div class="proj-links">
+        <a class="proj-link" href="https://ai-task-board-project-llda9cnc1-ananya-h689s-projects.vercel.app/" target="_blank">🌐 Live Demo</a>
+        <a class="proj-link" href="https://ai-task-board-backend.onrender.com/" target="_blank">🔗 Backend API</a>
+        <a class="proj-link" href="https://github.com/Ananya-H689/AI-Task-Board-Project" target="_blank">💻 GitHub</a>
+      </div>
+    </div>
+
+    <!-- FertAlert -->
+    <div class="proj-card" data-cat="deeptech">
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.65rem;color:#A5B4FC;border:1px solid rgba(165,180,252,.25);padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;">🧠 System Design · NAIN 2.0</div>
+      <span class="proj-cat">AgriTech · Embedded ML · IoT</span>
+      <div class="proj-name">FertAlert</div>
+      <div class="proj-context">NAIN 2.0 · Govt. of Karnataka · SDG 2, 8, 12, 17</div>
+      <div class="proj-tech">
+        <span class="tech-chip">TensorFlow Lite Micro</span><span class="tech-chip">ESP32</span><span class="tech-chip">Python/scikit-learn</span><span class="tech-chip">Flutter</span><span class="tech-chip">Firebase</span>
+      </div>
+      <div class="proj-desc">
+        <strong>First-of-its-kind</strong> AI device detecting fertilizer adulteration in <strong>30–60 seconds</strong> for India's 106M small &amp; marginal farmers. Multi-sensor fusion (EC + pH + colour → TFLite Micro ML on ESP32). GENUINE / SUSPECT / REJECT verdict on LCD + WhatsApp in local language. Target accuracy &gt;88%, device cost ₹3,000 vs ₹5–15 lakh alternatives.
+      </div>
+    </div>
+
+    <!-- AIVA -->
+    <div class="proj-card" data-cat="deeptech">
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.65rem;color:#A5B4FC;border:1px solid rgba(165,180,252,.25);padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;">🧠 AI Architecture · TenzorX 2026</div>
+      <span class="proj-cat">FinTech · Multi-modal AI</span>
+      <div class="proj-name">AIVA</div>
+      <div class="proj-context">TenzorX 2026 · Poonawalla Fincorp</div>
+      <div class="proj-tech">
+        <span class="tech-chip">Whisper STT</span><span class="tech-chip">LLM APIs</span><span class="tech-chip">MediaPipe CV</span><span class="tech-chip">YOLOv8</span><span class="tech-chip">WebRTC</span><span class="tech-chip">AWS/GCP</span>
+      </div>
+      <div class="proj-desc">
+        End-to-end 7-stage AI pipeline replacing a 3-day manual KYC process with a <strong>10-minute intelligent video call</strong>. Behavioral fraud detection via voice stress + facial micro-expression analysis. Multilingual AI (auto-detects language in 5s). Projected: <strong>70% faster onboarding, 60% fraud reduction</strong>, 3× Tier-2/3 reach.
+      </div>
+    </div>
+
+    <!-- SANGATH -->
+    <div class="proj-card" data-cat="product">
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.65rem;color:#FCA5A5;border:1px solid rgba(252,165,165,.25);padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;">💡 Product Concept · Eureka Top 500</div>
+      <span class="proj-cat">HealthTech · AI Product</span>
+      <div class="proj-name">SANGATH</div>
+      <div class="proj-context">Eureka! 2025 · Top 500 / 43,000+ · IIT Bombay</div>
+      <div class="proj-tech">
+        <span class="tech-chip">AI Platform</span><span class="tech-chip">Business Model</span><span class="tech-chip">Lean Canvas</span>
+      </div>
+      <div class="proj-desc">
+        AI-powered family mental wellness platform reducing emotional isolation &amp; stigma via anonymized story mirroring. Complete product strategy: Lean Canvas, customer personas, competitor analysis, <strong>Freemium + Licensing revenue model</strong>, financial projections &amp; break-even analysis.
+      </div>
+    </div>
+
+    <!-- AURA DNA -->
+    <div class="proj-card" data-cat="product">
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.65rem;color:#FCA5A5;border:1px solid rgba(252,165,165,.25);padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;">💡 Product Concept · L'Oréal Brandstorm</div>
+      <span class="proj-cat">Consumer AI · Wearable Tech</span>
+      <div class="proj-name">AURA DNA™</div>
+      <div class="proj-context">L'Oréal Brandstorm 2026 · Team Radiant</div>
+      <div class="proj-tech">
+        <span class="tech-chip">AI Personalization</span><span class="tech-chip">Wearable Sensors</span><span class="tech-chip">ML-driven UX</span>
+      </div>
+      <div class="proj-desc">
+        Adaptive fragrance system responding in real-time to emotional state, heart rate, temperature &amp; environment via AI + wearables. Proposed modular cartridge architecture with ML-driven personalization — redefining perfume as a dynamic living product.
+      </div>
+    </div>
+
+    <!-- Event-Ease -->
+    <div class="proj-card" data-cat="fullstack">
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.65rem;color:#86EFAC;border:1px solid rgba(134,239,172,.25);padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;">⚙️ Built · Academic Project</div>
+      <span class="proj-cat">Full-Stack · MERN</span>
+      <div class="proj-name">Event-Ease</div>
+      <div class="proj-context">Full-Stack Event Management Platform</div>
+      <div class="proj-tech">
+        <span class="tech-chip">MongoDB</span><span class="tech-chip">Express.js</span><span class="tech-chip">React.js</span><span class="tech-chip">Node.js</span><span class="tech-chip">MongoDB Atlas</span>
+      </div>
+      <div class="proj-desc">
+        Scalable MERN event registration system with CRUD, real-time search, edit/delete &amp; CSV export. MongoDB Atlas integration with event-wise participant analytics. <strong>Handles 100+ concurrent records</strong> with structured data flow.
+      </div>
+      <div class="proj-academic-tag">Academic Project</div>
+    </div>
+
+    <!-- Movie Booking -->
+    <div class="proj-card" data-cat="fullstack">
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.65rem;color:#86EFAC;border:1px solid rgba(134,239,172,.25);padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;">⚙️ Built · Academic Project</div>
+      <span class="proj-cat">Full-Stack · DBMS</span>
+      <div class="proj-name">Movie Ticket Booking</div>
+      <div class="proj-context">Database-Driven Booking System</div>
+      <div class="proj-tech">
+        <span class="tech-chip">React.js</span><span class="tech-chip">Node.js</span><span class="tech-chip">MySQL</span><span class="tech-chip">Express.js</span>
+      </div>
+      <div class="proj-desc">
+        Normalized relational DB with transaction-based seat allocation — <strong>zero double-bookings via SQL constraints</strong>. SQL JOIN queries for booking reports; simulated secure payment workflow end-to-end.
+      </div>
+      <div class="proj-academic-tag">Academic Project</div>
+    </div>
+
+    <!-- Health Monitor -->
+    <div class="proj-card" data-cat="deeptech">
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.65rem;color:#86EFAC;border:1px solid rgba(134,239,172,.25);padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;">⚙️ Built · Academic Project</div>
+      <span class="proj-cat">IoT · Embedded Systems</span>
+      <div class="proj-name">Health Monitor (IoT)</div>
+      <div class="proj-context">Embedded Systems Coursework</div>
+      <div class="proj-tech">
+        <span class="tech-chip">Arduino UNO</span><span class="tech-chip">Pulse Sensor</span><span class="tech-chip">DS18B20</span><span class="tech-chip">I2C LCD</span><span class="tech-chip">Embedded C</span>
+      </div>
+      <div class="proj-desc">
+        Real-time heart rate (BPM) &amp; body temperature monitoring on 16×2 LCD with LED heartbeat sync. Demonstrates low-cost biomedical monitoring for remote/rural healthcare environments.
+      </div>
+      <div class="proj-academic-tag">Academic Project</div>
+    </div>
+
+    <!-- Bio-Patch -->
+    <div class="proj-card" data-cat="product">
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.65rem;color:#FCA5A5;border:1px solid rgba(252,165,165,.25);padding:.2rem .6rem;border-radius:2px;margin-bottom:.9rem;letter-spacing:.06em;">💡 Patent Application Idea</div>
+      <span class="proj-cat">BioMedical · Patent Idea</span>
+      <div class="proj-name">Bio-Patch for Sepsis</div>
+      <div class="proj-context">Patent Application Idea</div>
+      <div class="proj-tech">
+        <span class="tech-chip">Embedded Sensing</span><span class="tech-chip">Biomarker Monitoring</span>
+      </div>
+      <div class="proj-desc">
+        Wearable bio-patch concept for <strong>continuous early-stage sepsis detection</strong> via biomarker &amp; vital-sign monitoring — designed for ICU environments where early detection is critical.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Achievements -->
+<section id="achievements">
+  <div class="section-label">Achievements</div>
+  <h2 class="section-title">Recognition &amp; <em>impact</em>.</h2>
+
+  <div class="ach-list reveal">
+    <div class="ach-item"><span class="ach-icon">🥇</span><div class="ach-body"><div class="ach-title">Eureka! 2025 Zonalist</div><div class="ach-sub">Top 500 / 43,000+ teams · E-Cell IIT Bombay</div></div></div>
+    <div class="ach-item"><span class="ach-icon">🔬</span><div class="ach-body"><div class="ach-title">NAIN 2.0 — Govt. of Karnataka</div><div class="ach-sub">FertAlert AgriTech proposal · Dept. of IT, BT &amp; S&amp;T</div></div></div>
+    <div class="ach-item"><span class="ach-icon">💳</span><div class="ach-body"><div class="ach-title">TenzorX 2026</div><div class="ach-sub">AIVA AI System · Poonawalla Fincorp challenge</div></div></div>
+    <div class="ach-item"><span class="ach-icon">🌟</span><div class="ach-body"><div class="ach-title">L'Oréal Brandstorm 2026</div><div class="ach-sub">Product Innovation Challenge · Team Radiant</div></div></div>
+    <div class="ach-item"><span class="ach-icon">🏅</span><div class="ach-body"><div class="ach-title">Salesforce Agentblazer Champion</div><div class="ach-sub">3,900+ pts · 18 modules + 2 hands-on projects</div></div></div>
+    <div class="ach-item"><span class="ach-icon">🚀</span><div class="ach-body"><div class="ach-title">Smart India Hackathon</div><div class="ach-sub">National-level hackathon participant</div></div></div>
+    <div class="ach-item"><span class="ach-icon">🌱</span><div class="ach-body"><div class="ach-title">L'Oréal Sustainability Challenge 2025</div><div class="ach-sub">Online Aptitude Assessment participant</div></div></div>
+    <div class="ach-item"><span class="ach-icon">🧩</span><div class="ach-body"><div class="ach-title">Tata Imagination Challenge 2025</div><div class="ach-sub">Tata Quiz · Tata Group / Unstop</div></div></div>
+    <div class="ach-item"><span class="ach-icon">💡</span><div class="ach-body"><div class="ach-title">Prompt Wars</div><div class="ach-sub">AI prompt-engineering contest · MITE · May 2024</div></div></div>
+    <div class="ach-item"><span class="ach-icon">⚡</span><div class="ach-body"><div class="ach-title">Forge Quest</div><div class="ach-sub">Logic &amp; coding challenge · CSE Dept MITE · Oct 2025</div></div></div>
+    <div class="ach-item"><span class="ach-icon">🔍</span><div class="ach-body"><div class="ach-title">Hack &amp; Seek</div><div class="ach-sub">Hackathon-style event · MITE · Sep 2025</div></div></div>
+    <div class="ach-item"><span class="ach-icon">📋</span><div class="ach-body"><div class="ach-title">Eureka Bootcamp (3 days)</div><div class="ach-sub">Wadhwani Foundation + IIT Bombay · Aug 2025</div></div></div>
+    <div class="ach-item"><span class="ach-icon">🧠</span><div class="ach-body"><div class="ach-title">WEP Ideathon</div><div class="ach-sub">TAVR Patient Management App idea</div></div></div>
+    <div class="ach-item"><span class="ach-icon">📝</span><div class="ach-body"><div class="ach-title">Patent Application</div><div class="ach-sub">Bio-Patch for Sepsis early detection</div></div></div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section id="certifications">
+  <div class="section-label">Certifications</div>
+  <h2 class="section-title">Always <em>learning</em>.</h2>
+
+  <div class="cert-grid reveal">
+    <div class="cert-card premium"><span class="cert-icon">🏆</span><div class="cert-name">Agentforce Innovator 2026</div><div class="cert-org">Salesforce Trailhead</div></div>
+    <div class="cert-card premium"><span class="cert-icon">🏆</span><div class="cert-name">Agentblazer Champion 2025</div><div class="cert-org">Salesforce Trailhead · 3,900+ pts · 18 modules</div></div>
+    <div class="cert-card premium"><span class="cert-icon">🎓</span><div class="cert-name">Deloitte Technology Job Simulation</div><div class="cert-org">Forage · Coding &amp; Development · Apr 2026</div></div>
+    <div class="cert-card premium"><span class="cert-icon">🎓</span><div class="cert-name">OpenCV Bootcamp — 100% Grade</div><div class="cert-org">OpenCV University · Certificate of Excellence</div></div>
+    <div class="cert-card"><span class="cert-icon">🎓</span><div class="cert-name">AI Applications in Healthcare</div><div class="cert-org">Simplilearn SkillUp</div></div>
+    <div class="cert-card"><span class="cert-icon">🎓</span><div class="cert-name">Building Agentic AI (AWS Bedrock)</div><div class="cert-org">Analytics Vidhya · 2025</div></div>
+    <div class="cert-card"><span class="cert-icon">🎓</span><div class="cert-name">Artificial Intelligence for All</div><div class="cert-org">IUCEE Foundation · 6-week series</div></div>
+    <div class="cert-card"><span class="cert-icon">🎓</span><div class="cert-name">Critical Thinking in the AI Era</div><div class="cert-org">HP LIFE</div></div>
+    <div class="cert-card"><span class="cert-icon">🎓</span><div class="cert-name">RPA Developer Foundation</div><div class="cert-org">UiPath · v2021.10</div></div>
+    <div class="cert-card"><span class="cert-icon">🎓</span><div class="cert-name">Ignite Bootcamp — Idea to Plan</div><div class="cert-org">Wadhwani Foundation</div></div>
+    <div class="cert-card"><span class="cert-icon">🎓</span><div class="cert-name">Data Science Foundations</div><div class="cert-org">Analytics Vidhya</div></div>
+    <div class="cert-card"><span class="cert-icon">🎓</span><div class="cert-name">Introduction to Artificial Intelligence</div><div class="cert-org">Infosys Springboard · Apr 2024</div></div>
+    <div class="cert-card"><span class="cert-icon">🎓</span><div class="cert-name">R Programming &amp; Statistics</div><div class="cert-org">Infosys Springboard</div></div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="justify-content:center">Contact</div>
+    <h2 class="section-title" style="font-size:clamp(2rem,5vw,3.5rem)">Let's build<br/>something <em>great</em>.</h2>
+    <p>I'm actively looking for product-focused internships where I can build scalable systems, apply AI to real problems, and contribute meaningfully. If that sounds like your team — let's talk.</p>
+
+    <a href="mailto:ananyahr906@gmail.com" class="contact-email-big">ananyahr906@gmail.com</a>
+
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/ananya-hebbar-571b51343" target="_blank" class="contact-link">🔗 LinkedIn</a>
+      <a href="https://github.com/Ananya-H689" target="_blank" class="contact-link">💻 GitHub</a>
+      <a href="tel:+919845730406" class="contact-link">📞 +91-9845730406</a>
+    </div>
+
+    <a href="mailto:ananyahr906@gmail.com" class="btn-primary" style="font-size:.95rem;padding:.85rem 2.5rem">Say Hello →</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Ananya Hebbar · Mangaluru, Karnataka</span>
+  <span style="color:var(--accent);font-family:'DM Mono',monospace">Built with purpose.</span>
+</footer>
+
+<script>
+// ── Cursor ───────────────────────────────────────────────────────────────────
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+function animateRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a,button,.proj-card,.ach-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.style.transform='translate(-50%,-50%) scale(2.5)';
+    ring.style.transform='translate(-50%,-50%) scale(1.5)';
+    ring.style.borderColor='rgba(34,211,238,.7)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cur.style.transform='translate(-50%,-50%) scale(1)';
+    ring.style.transform='translate(-50%,-50%) scale(1)';
+    ring.style.borderColor='rgba(34,211,238,.4)';
+  });
+});
+
+// ── Navbar scroll ────────────────────────────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// ── Scroll reveal ─────────────────────────────────────────────────────────────
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Stagger proj cards on load
+document.querySelectorAll('.proj-card').forEach((c,i)=>{
+  c.style.opacity='0';c.style.transform='translateY(24px)';
+  c.style.transition=`opacity .55s ${i*.07}s ease, transform .55s ${i*.07}s ease, border-color .3s, box-shadow .3s`;
+  const o2 = new IntersectionObserver(en=>{
+    if(en[0].isIntersecting){c.style.opacity='1';c.style.transform='translateY(0)'}
+  },{threshold:.08});
+  o2.observe(c);
+});
+
+// ── Project filter ───────────────────────────────────────────────────────────
+function filterProj(cat,btn){
+  document.querySelectorAll('.proj-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.proj-card').forEach(card=>{
+    const match = cat==='all' || card.dataset.cat===cat;
+    card.style.display = match ? 'flex' : 'none';
+  });
+}
+
+// ── Active nav link highlight ─────────────────────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});
+  navLinks.forEach(a=>{
+    a.style.color=a.getAttribute('href')==='#'+cur?'var(--accent)':'';
+  });
+},{passive:true});
+</script>
+</body>
+</html>
